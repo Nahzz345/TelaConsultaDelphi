@@ -1,0 +1,18 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  Height = 664
+  Width = 903
+  object FDConnection1: TFDConnection
+    Left = 80
+    Top = 96
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnection1
+    Left = 208
+    Top = 96
+  end
+  object DataSource1: TDataSource
+    Left = 208
+    Top = 168
+  end
+end

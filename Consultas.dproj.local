@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/09/14 11:29:22.000.142,=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/09/14 11:29:47.000.155,C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\UnitPrincipal.pas=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/09/14 11:29:47.000.155,C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\UnitPrincipal.dfm=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2022/09/14 11:29:55.000.820,C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\Consultas.dproj=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/09/14 11:34:41.000.827,=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\Unit1.pas</Transaction>
+    <Transaction>2022/09/14 11:35:23.000.867,C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\unitDM.pas=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\Unit1.pas</Transaction>
+    <Transaction>2022/09/14 11:35:23.000.867,C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\unitDM.dfm=C:\Users\PedroH\Documents\Embarcadero\Studio\Projects\Tela consulta\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
