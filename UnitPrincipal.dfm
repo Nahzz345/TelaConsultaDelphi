@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Tela de consulta'
-  ClientHeight = 624
+  ClientHeight = 644
   ClientWidth = 831
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -64,10 +64,10 @@ object Form1: TForm1
     OnClick = btConsultaClick
   end
   object DBGrid1: TDBGrid
-    Left = 8
-    Top = 202
-    Width = 737
-    Height = 364
+    Left = 16
+    Top = 175
+    Width = 729
+    Height = 434
     DataSource = dsConsulta
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
@@ -91,6 +91,13 @@ object Form1: TForm1
       end
       item
         Expanded = False
+        FieldName = 'Fun_Situacao'
+        Title.Caption = 'Situa'#231#227'o'
+        Width = 48
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'Dp_id'
         Title.Caption = 'Id Departamento'
         Width = 92
@@ -104,6 +111,16 @@ object Form1: TForm1
         Visible = True
       end>
   end
+  object cbAtivo: TCheckBox
+    Left = 168
+    Top = 80
+    Width = 97
+    Height = 17
+    Caption = 'Ativo'
+    Checked = True
+    State = cbChecked
+    TabOrder = 4
+  end
   object qConsulta: TADOQuery
     Connection = DM.Conexao
     CursorType = ctStatic
@@ -111,12 +128,14 @@ object Form1: TForm1
     SQL.Strings = (
       'select '
       '  fun.Fun_id, '
-      '  fun.Fun_Nome,  '
+      '  fun.Fun_Nome, '
+      '  fun.Fun_Senha, '
+      '  fun.Fun_Situacao,'
       '  fun.Dp_id,'
       '  dep.Dp_Nome'
       'from Funcionarios fun'
       '  inner join Departamentos dep  On dep.dp_id = fun.dp_id')
-    Left = 168
+    Left = 448
     Top = 72
     object qConsultaFun_id: TAutoIncField
       FieldName = 'Fun_id'
@@ -125,6 +144,10 @@ object Form1: TForm1
     object qConsultaFun_Nome: TStringField
       FieldName = 'Fun_Nome'
       Size = 50
+    end
+    object qConsultaFun_Situacao: TStringField
+      FieldName = 'Fun_Situacao'
+      Size = 1
     end
     object qConsultaDp_id: TIntegerField
       FieldName = 'Dp_id'
@@ -136,7 +159,7 @@ object Form1: TForm1
   end
   object dsConsulta: TDataSource
     DataSet = qConsulta
-    Left = 224
+    Left = 504
     Top = 72
   end
 end

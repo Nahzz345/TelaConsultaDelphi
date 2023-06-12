@@ -1,0 +1,120 @@
+unit UnitPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.ExtCtrls, Data.Win.ADODB, Vcl.Menus;
+
+type
+  TForm1 = class(TForm)
+    RgConsulta: TRadioGroup;
+    txtConsulta: TEdit;
+    lblConsulta: TLabel;
+    btConsulta: TButton;
+    DBGrid1: TDBGrid;
+    qConsulta: TADOQuery;
+    dsConsulta: TDataSource;
+    qConsultaFun_id: TAutoIncField;
+    qConsultaFun_Nome: TStringField;
+    qConsultaDp_id: TIntegerField;
+    qConsultaDp_Nome: TStringField;
+    cbAtivo: TCheckBox;
+    qConsultaFun_Situacao: TStringField;
+    procedure RgConsultaClick(Sender: TObject);
+    procedure btConsultaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+uses unitDM;
+
+procedure TForm1.btConsultaClick(Sender: TObject);
+var
+  Parametro : TParameter;
+begin
+
+  with qConsulta do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(
+    ' select fun.Fun_id, fun.Fun_Nome, fun.Fun_Situacao ,fun.Dp_id, dep.Dp_Nome ' +
+    ' from Funcionarios fun' +
+    ' inner join Departamentos dep On dep.Dp_id = fun.dp_id '
+    );
+    Open;
+  end;
+
+
+  if RgConsulta.ItemIndex = 0 then
+  begin
+    with qConsulta do
+    begin
+      SQL.Add(' where Fun_id = :pIdFun');
+      Parametro := qConsulta.Parameters.ParamByName('pIdFun');
+      Parametro.DataType := ftInteger;
+      Parametro.Value := txtConsulta.Text;
+      Open;
+    end;
+  end;
+
+  if RgConsulta.ItemIndex = 1 then
+  begin
+    with qConsulta do
+    begin
+      SQL.Add(' where  fun.Fun_Nome like :pNomeFun');
+      Parametro := qConsulta.Parameters.ParamByName('pNomeFun');
+      Parametro.DataType := ftString;
+      Parametro.Value := '%' + txtConsulta.Text + '%';
+      Open;
+    end;
+  end;
+
+  if RgConsulta.ItemIndex = 2 then
+  begin
+    with qConsulta do
+    begin
+      SQL.Add(' where  dep.Dp_Nome like :pNomeDep');
+      Parametro := qConsulta.Parameters.ParamByName('pNomeDep');
+      Parametro.DataType := ftString;
+      Parametro.Value := '%' + txtConsulta.Text + '%';
+      Open;
+    end;
+  end
+
+end;
+
+
+
+procedure TForm1.RgConsultaClick(Sender: TObject);
+begin
+
+  if (RgConsulta.ItemIndex = 0) then
+    begin
+      lblConsulta.Caption := 'Digite o ID';
+    end;
+
+  if (RgConsulta.ItemIndex = 1) then
+    begin
+      lblConsulta.Caption := 'Digite seu Nome';
+    end;
+
+  if (RgConsulta.ItemIndex = 2) then
+    begin
+      lblConsulta.Caption := 'Digite seu Departamento';
+    end;
+
+end;
+
+end.

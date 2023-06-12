@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  Vcl.StdCtrls, Vcl.ExtCtrls, Data.Win.ADODB;
+  Vcl.StdCtrls, Vcl.ExtCtrls, Data.Win.ADODB, Vcl.Menus;
 
 type
   TForm1 = class(TForm)
@@ -20,6 +20,8 @@ type
     qConsultaFun_Nome: TStringField;
     qConsultaDp_id: TIntegerField;
     qConsultaDp_Nome: TStringField;
+    cbAtivo: TCheckBox;
+    qConsultaFun_Situacao: TStringField;
     procedure RgConsultaClick(Sender: TObject);
     procedure btConsultaClick(Sender: TObject);
   private
@@ -47,7 +49,7 @@ begin
     Close;
     SQL.Clear;
     SQL.Add(
-    ' select fun.Fun_id, fun.Fun_Nome, fun.Dp_id, dep.Dp_Nome ' +
+    ' select fun.Fun_id, fun.Fun_Nome, fun.Fun_Situacao ,fun.Dp_id, dep.Dp_Nome ' +
     ' from Funcionarios fun' +
     ' inner join Departamentos dep On dep.Dp_id = fun.dp_id '
     );
@@ -57,39 +59,83 @@ begin
 
   if RgConsulta.ItemIndex = 0 then
   begin
-    with qConsulta do
+    if cbAtivo.Checked = False then
     begin
-      SQL.Add(' where Fun_id = :pIdFun');
-      Parametro := qConsulta.Parameters.ParamByName('pIdFun');
-      Parametro.DataType := ftInteger;
-      Parametro.Value := txtConsulta.Text;
-      Open;
+      with qConsulta do
+      begin
+        SQL.Add(' where Fun_id = :pIdFun and fun.Fun_Situacao = ''N'' ');
+        Parametro := qConsulta.Parameters.ParamByName('pIdFun');
+        Parametro.DataType := ftInteger;
+        Parametro.Value := txtConsulta.Text;
+        Open;
+      end;
+    end
+    else
+    begin
+      with qConsulta do
+      begin
+        SQL.Add(' where Fun_id = :pIdFun and fun.Fun_Situacao = ''A'' ');
+        Parametro := qConsulta.Parameters.ParamByName('pIdFun');
+        Parametro.DataType := ftInteger;
+        Parametro.Value := txtConsulta.Text;
+        Open;
+      end;
     end;
   end;
 
   if RgConsulta.ItemIndex = 1 then
   begin
-    with qConsulta do
+    if cbAtivo.Checked = False then
     begin
-      SQL.Add(' where  fun.Fun_Nome like :pNomeFun');
-      Parametro := qConsulta.Parameters.ParamByName('pNomeFun');
-      Parametro.DataType := ftString;
-      Parametro.Value := '%' + txtConsulta.Text + '%';
-      Open;
+      with qConsulta do
+      begin
+        SQL.Add(' where  fun.Fun_Nome like :pNomeFun and fun.Fun_Situacao = ''N'' ');
+        Parametro := qConsulta.Parameters.ParamByName('pNomeFun');
+        Parametro.DataType := ftString;
+        Parametro.Value := '%' + txtConsulta.Text + '%';
+        Open;
+      end;
+    end
+    else
+    begin
+      with qConsulta do
+      begin
+        SQL.Add(' where  fun.Fun_Nome like :pNomeFun and fun.Fun_Situacao = ''A'' ');
+        Parametro := qConsulta.Parameters.ParamByName('pNomeFun');
+        Parametro.DataType := ftString;
+        Parametro.Value := '%' + txtConsulta.Text + '%';
+        Open;
+      end;
     end;
   end;
 
   if RgConsulta.ItemIndex = 2 then
   begin
-    with qConsulta do
+    if cbAtivo.Checked = False then
     begin
-      SQL.Add(' where  dep.Dp_Nome like :pNomeDep');
-      Parametro := qConsulta.Parameters.ParamByName('pNomeDep');
-      Parametro.DataType := ftString;
-      Parametro.Value := '%' + txtConsulta.Text + '%';
-      Open;
+      with qConsulta do
+      begin
+        SQL.Add(' where  dep.Dp_Nome like :pNomeDep and fun.Fun_Situacao = ''N'' ');
+        Parametro := qConsulta.Parameters.ParamByName('pNomeDep');
+        Parametro.DataType := ftString;
+        Parametro.Value := '%' + txtConsulta.Text + '%';
+        Open;
+      end;
+    end
+    else
+    begin
+      with qConsulta do
+      begin
+        SQL.Add(' where  dep.Dp_Nome like :pNomeDep and fun.Fun_Situacao = ''A'' ');
+        Parametro := qConsulta.Parameters.ParamByName('pNomeDep');
+        Parametro.DataType := ftString;
+        Parametro.Value := '%' + txtConsulta.Text + '%';
+        Open;
+      end;
     end;
   end;
+
+
 
 end;
 
