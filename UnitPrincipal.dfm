@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Tela de consulta'
-  ClientHeight = 574
-  ClientWidth = 856
+  ClientHeight = 624
+  ClientWidth = 831
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,14 +11,15 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object lblConsulta: TLabel
-    Left = 280
-    Top = 8
-    Width = 103
+    Left = 168
+    Top = 16
+    Width = 82
     Height = 16
-    Caption = 'Digite seu nome'
+    Caption = 'Digite seu ID'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -26,31 +27,31 @@ object Form1: TForm1
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object opcoes: TRadioGroup
+  object RgConsulta: TRadioGroup
     Left = 16
-    Top = 24
-    Width = 217
-    Height = 65
+    Top = 8
+    Width = 137
+    Height = 89
     Caption = 'Op'#231#245'es de consulta'
-    Columns = 2
     ItemIndex = 0
     Items.Strings = (
+      'Id'
       'Nome'
-      'Bairro')
+      'Departamento')
     TabOrder = 0
-    OnClick = opcoesClick
+    OnClick = RgConsultaClick
   end
   object txtConsulta: TEdit
-    Left = 280
-    Top = 40
+    Left = 168
+    Top = 38
     Width = 553
-    Height = 33
+    Height = 21
     TabOrder = 1
   end
   object btConsulta: TButton
     Left = 16
     Top = 120
-    Width = 817
+    Width = 729
     Height = 49
     Caption = 'Realizar Consulta'
     Font.Charset = DEFAULT_CHARSET
@@ -63,11 +64,11 @@ object Form1: TForm1
     OnClick = btConsultaClick
   end
   object DBGrid1: TDBGrid
-    Left = 16
-    Top = 192
-    Width = 817
+    Left = 8
+    Top = 202
+    Width = 737
     Height = 364
-    DataSource = DM.dsSqlConsulta
+    DataSource = dsConsulta
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -77,49 +78,65 @@ object Form1: TForm1
     Columns = <
       item
         Expanded = False
-        FieldName = 'id'
-        Title.Caption = 'ID'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -12
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
+        FieldName = 'Fun_id'
+        Title.Caption = 'Id'
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'nome'
-        Title.Caption = 'NOME'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -12
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Width = 363
+        FieldName = 'Fun_Nome'
+        Title.Caption = 'Nome'
+        Width = 368
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'bairro'
-        Title.Caption = 'BAIRRO'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -12
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Width = 194
+        FieldName = 'Dp_id'
+        Title.Caption = 'Id Departamento'
+        Width = 92
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'idade'
-        Title.Caption = 'IDADE'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -12
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
+        FieldName = 'Dp_Nome'
+        Title.Caption = 'Departamento'
+        Width = 107
         Visible = True
       end>
+  end
+  object qConsulta: TADOQuery
+    Connection = DM.Conexao
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select '
+      '  fun.Fun_id, '
+      '  fun.Fun_Nome,  '
+      '  fun.Dp_id,'
+      '  dep.Dp_Nome'
+      'from Funcionarios fun'
+      '  inner join Departamentos dep  On dep.dp_id = fun.dp_id')
+    Left = 168
+    Top = 72
+    object qConsultaFun_id: TAutoIncField
+      FieldName = 'Fun_id'
+      ReadOnly = True
+    end
+    object qConsultaFun_Nome: TStringField
+      FieldName = 'Fun_Nome'
+      Size = 50
+    end
+    object qConsultaDp_id: TIntegerField
+      FieldName = 'Dp_id'
+    end
+    object qConsultaDp_Nome: TStringField
+      FieldName = 'Dp_Nome'
+      Size = 50
+    end
+  end
+  object dsConsulta: TDataSource
+    DataSet = qConsulta
+    Left = 224
+    Top = 72
   end
 end

@@ -8,13 +8,11 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.MySQL,
-  FireDAC.Phys.MySQLDef;
+  FireDAC.Phys.MySQLDef, Data.Win.ADODB;
 
 type
   TDM = class(TDataModule)
-    Conexao: TFDConnection;
-    sqlConsulta: TFDQuery;
-    dsSqlConsulta: TDataSource;
+    Conexao: TADOConnection;
   private
     { Private declarations }
   public

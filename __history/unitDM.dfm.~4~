@@ -1,0 +1,56 @@
+object DM: TDM
+  OldCreateOrder = False
+  Height = 664
+  Width = 903
+  object dsSqlConsulta: TDataSource
+    DataSet = sqlConsulta
+    Left = 200
+    Top = 144
+  end
+  object Conexao: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=saoba123;Persist Security Info=True' +
+      ';User ID=sa;Initial Catalog=BDPEDRO;Data Source=DESENV5'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 96
+    Top = 80
+  end
+  object sqlConsulta: TADOQuery
+    Connection = Conexao
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select '
+      '  fun.Fun_id, '
+      '  fun.Fun_Nome, '
+      '  fun.Fun_Senha, '
+      '  fun.Dp_id,'
+      '  dep.Dp_Nome'
+      'from Funcionarios fun'
+      '  inner join Departamentos dep  On dep.dp_id = fun.dp_id'
+      ';')
+    Left = 200
+    Top = 80
+    object sqlConsultaFun_id: TAutoIncField
+      FieldName = 'Fun_id'
+      ReadOnly = True
+    end
+    object sqlConsultaFun_Nome: TStringField
+      FieldName = 'Fun_Nome'
+      Size = 50
+    end
+    object sqlConsultaFun_Senha: TStringField
+      FieldName = 'Fun_Senha'
+      Size = 10
+    end
+    object sqlConsultaDp_id: TIntegerField
+      FieldName = 'Dp_id'
+    end
+    object sqlConsultaDp_Nome: TStringField
+      FieldName = 'Dp_Nome'
+      Size = 50
+    end
+  end
+end
